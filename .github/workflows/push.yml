@@ -1,0 +1,34 @@
+# .github/workflows/push.yml
+name: Push to Replicate
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Имя модели (например, username/test-model)'
+        required: true
+        type: string
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Освободить место
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+
+      - name: Клонировать репозиторий
+        uses: actions/checkout@v4
+
+      - name: Установить Cog и залогиниться
+        uses: replicate/setup-cog@v2
+        with:
+          token: ${{ secrets.REPLICATE_CLI_AUTH_TOKEN }}
+
+      - name: Пуш модели
+        run: cog push r8.im/${{ github.event.inputs.model }}
