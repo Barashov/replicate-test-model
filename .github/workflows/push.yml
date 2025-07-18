@@ -2,12 +2,10 @@
 name: Push to Replicate
 
 on:
-  workflow_dispatch:
-    inputs:
-      model:
-        description: 'Имя модели (например, username/test-model)'
-        required: true
-        type: string
+  push:
+    branches:
+      - main
+
 
 jobs:
   push:
