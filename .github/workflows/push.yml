@@ -31,4 +31,4 @@ jobs:
           token: ${{ secrets.REPLICATE_CLI_AUTH_TOKEN }}
 
       - name: Пуш модели
-        run: cog push r8.im/${{ github.event.inputs.model }}
+        run: cog push r8.im/barashov/replicate-test-model
